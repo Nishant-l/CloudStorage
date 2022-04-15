@@ -31,4 +31,8 @@ public class NotesService {
     public void  deleteNote(int noteid){
         notesMapper.deleteNote(noteid);
     }
+
+    public void updateNote(String noteTital, String noteDescription, int noteId){
+        notesMapper.updateNotes(noteTital, noteDescription, noteId);
+    }
 }

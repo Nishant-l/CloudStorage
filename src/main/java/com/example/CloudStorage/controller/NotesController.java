@@ -1,5 +1,6 @@
 package com.example.CloudStorage.controller;
 
+import com.example.CloudStorage.model.Notes;
 import com.example.CloudStorage.model.formBackingObjects.NotesFormObject;
 import com.example.CloudStorage.services.NotesService;
 import org.springframework.security.core.Authentication;
@@ -18,11 +19,13 @@ public class NotesController {
     @PostMapping("/notes")
     public String addNote(Authentication authentication, Model model, @ModelAttribute("notesFormObject")NotesFormObject notesFormObject){
         System.out.println("------Notes Post Form Start-------"+authentication.getName());
-        System.out.println(notesFormObject.getNotetitle());
-        System.out.println(notesFormObject.getNotedescription());
-        System.out.println(authentication);
-        int retVal = notesService.addNoteToNotesForAUser(notesFormObject,authentication.getName());
-        System.out.println(retVal);
+        if(notesFormObject.getNoteId()!=""){
+            notesService.updateNote(notesFormObject.getNotetitle(),notesFormObject.getNotedescription(),Integer.parseInt(notesFormObject.getNoteId(),10));
+            System.out.println("---wating for it the noteId-----"+notesFormObject.getNoteId());
+        }else{
+            int retVal = notesService.addNoteToNotesForAUser(notesFormObject,authentication.getName());
+            System.out.println(retVal);
+        }
         System.out.println("------Notes Post Form END-------");
         return "redirect:/home";
     }
