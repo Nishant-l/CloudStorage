@@ -27,4 +27,8 @@ public class NotesService {
         int userId = userMapper.getUserId(username);
         return notesMapper.addNoteTONotes(new Notes(obj.getNotetitle(), obj.getNotedescription(), userId));
     }
+
+    public void  deleteNote(int noteid){
+        notesMapper.deleteNote(noteid);
+    }
 }

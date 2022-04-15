@@ -5,12 +5,9 @@ import com.example.CloudStorage.services.NotesService;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping("/notes")
 public class NotesController {
     NotesService notesService;
 
@@ -18,7 +15,7 @@ public class NotesController {
         this.notesService = notesService;
     }
 
-    @PostMapping
+    @PostMapping("/notes")
     public String addNote(Authentication authentication, Model model, @ModelAttribute("notesFormObject")NotesFormObject notesFormObject){
         System.out.println("------Notes Post Form Start-------"+authentication.getName());
         System.out.println(notesFormObject.getNotetitle());
@@ -27,6 +24,13 @@ public class NotesController {
         int retVal = notesService.addNoteToNotesForAUser(notesFormObject,authentication.getName());
         System.out.println(retVal);
         System.out.println("------Notes Post Form END-------");
+        return "redirect:/home";
+    }
+
+    @GetMapping("/deleteNote")
+    public String deleteNote(@RequestParam(value = "noteid", required = false) String noteid,Authentication authentication, Model model, @ModelAttribute("notesFormObject")NotesFormObject notesFormObject){
+        notesService.deleteNote(Integer.parseInt(noteid,10));
+        System.out.println("----___----___---__%%%%%"+noteid);
         return "redirect:/home";
     }
 }
