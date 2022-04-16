@@ -141,7 +141,7 @@
                                 <tr>
                                     <td>
                                         <button type="button" class="btn btn-success" th:onclick="showCredentialModal([[${cred.credentialid}]],[[${cred.url}]],[[${cred.username}]],[[${cred.originalPassword}]])">Edit</button>
-                                        <a class="btn btn-danger">Delete</a>
+                                        <a class="btn btn-danger" th:href="@{'/deleteCred/?credentialid='+${cred.credentialid}}">Delete</a>
                                     </td>
                                     <th scope="row" th:text="${cred.url}">Example Credential URL</th>
                                     <td th:text="${cred.username}">Example Credential Username</td>

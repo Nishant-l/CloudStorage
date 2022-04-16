@@ -18,4 +18,7 @@ public interface CredMapper {
 
     @Update("UPDATE CREDENTIALS SET url=#{url}, username=#{username}, salt=#{salt}, password=#{password}, userid=#{userid} WHERE credentialid=#{credentialid}")
     public void updateCred(String url, String username, String salt, String password, int userid, String credentialid);
+
+    @Delete("DELETE FROM CREDENTIALS WHERE credentialid=#{credentialid}")
+    public void deleteCred(String credentialid);
 }

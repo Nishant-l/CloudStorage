@@ -30,12 +30,6 @@ public class CredService {
         String encryptedPassword = encryptionService.encryptValue(obj.getPassword(), encodedSalt);
         int userId = userMapper.getUserId(userName);                // to get usetId associated with a unique userName
 
-//        System.out.println(obj.getUrl());
-//        System.out.println(obj.getUsername());
-//        System.out.println(encryptedPassword);
-//        System.out.println(encodedSalt);
-//        System.out.println(userId);
-
         String url = obj.getUrl();
         String userNameTo = obj.getUsername();
         String credId = obj.getCredentialid();
@@ -52,5 +46,9 @@ public class CredService {
     public ArrayList<CredModel> getAllCred(String userName){
         int userId = userMapper.getUserId(userName); // to get usetId associated with a unique userName
         return credMapper.getAllCrediantial(userId);
+    }
+
+    public void DeleteCred(String credentialid){
+        credMapper.deleteCred(credentialid);
     }
 }
