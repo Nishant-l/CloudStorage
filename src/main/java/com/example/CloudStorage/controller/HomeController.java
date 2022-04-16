@@ -34,19 +34,15 @@ public class HomeController {
         System.out.println(authentication.getName());
         ArrayList<Notes> Notes = notesService.getAllNotesAssociatedToUser(authentication.getName());
         ArrayList<CredModel> Creds = credService.getAllCred(authentication.getName());
-//        ArrayList<CredModel> CredsModefied = new ArrayList<>();
+        
         for(CredModel i: Creds){
             String encriptedPassword = i.getPassword();
             String salt = i.getsalt();
-            System.out.println("in homecontroller encryptedPassword---->"+encriptedPassword);
-            System.out.println("in homecontroller Salt             ---->"+salt);
-//            System.out.println("in homecontroller original Password---->"+encryptionService.decryptValue(encriptedPassword,salt));
             String originalPassword = encryptionService.decryptValue(encriptedPassword,salt);
             i.setOriginalPassword(originalPassword);
         }
         model.addAttribute("notes",Notes);
         model.addAttribute("creds",Creds);
-//        model.addAttribute("credOriginal",CredsModefied);
         // TODO ---> create service to feth login user specific data
         return "home";
     }

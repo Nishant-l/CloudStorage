@@ -1,14 +1,24 @@
 package com.example.CloudStorage.model.formBackingObjects;
 
 public class CredFormObject {
+    private String credentialid;
     private String url;
     private String username;
     private String password;
 
-    public CredFormObject(String url, String username, String password) {
+    public CredFormObject(String credentialid, String url, String username, String password) {
+        this.credentialid = credentialid;
         this.url = url;
         this.username = username;
         this.password = password;
+    }
+
+    public String getCredentialid() {
+        return credentialid;
+    }
+
+    public void setCredentialid(String credentialid) {
+        this.credentialid = credentialid;
     }
 
     public String getUrl() {

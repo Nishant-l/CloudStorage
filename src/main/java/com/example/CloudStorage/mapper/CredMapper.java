@@ -16,4 +16,6 @@ public interface CredMapper {
     @Options(useGeneratedKeys = true, keyProperty = "credentialid")
     public int addCred(CredModel credModel);
 
+    @Update("UPDATE CREDENTIALS SET url=#{url}, username=#{username}, salt=#{salt}, password=#{password}, userid=#{userid} WHERE credentialid=#{credentialid}")
+    public void updateCred(String url, String username, String salt, String password, int userid, String credentialid);
 }

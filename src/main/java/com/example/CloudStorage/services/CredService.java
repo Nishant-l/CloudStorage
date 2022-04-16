@@ -22,7 +22,7 @@ public class CredService {
         this.userMapper = userMapper;
     }
 
-    public int createNewCred(CredFormObject obj, String userName){ // to create new crediantial for user
+    public void createNewCred(CredFormObject obj, String userName){ // to create new crediantial for user
         SecureRandom random = new SecureRandom();
         byte[] salt = new byte[16];
         random.nextBytes(salt);
@@ -30,15 +30,23 @@ public class CredService {
         String encryptedPassword = encryptionService.encryptValue(obj.getPassword(), encodedSalt);
         int userId = userMapper.getUserId(userName);                // to get usetId associated with a unique userName
 
-        System.out.println(obj.getUrl());
-        System.out.println(obj.getUsername());
-        System.out.println(encryptedPassword);
-        System.out.println(encodedSalt);
-        System.out.println(userId);
+//        System.out.println(obj.getUrl());
+//        System.out.println(obj.getUsername());
+//        System.out.println(encryptedPassword);
+//        System.out.println(encodedSalt);
+//        System.out.println(userId);
+
         String url = obj.getUrl();
         String userNameTo = obj.getUsername();
+        String credId = obj.getCredentialid();
 
-        return credMapper.addCred(new CredModel(url,userNameTo,encodedSalt,encryptedPassword,userId));
+        if(credId==""){
+            System.out.println("--Creating New Crediantials--");
+            credMapper.addCred(new CredModel(url,userNameTo,encodedSalt,encryptedPassword,userId));
+        }else{
+            System.out.println("--Updating Existing Crediantials--");
+            credMapper.updateCred(url,userNameTo,encodedSalt,encryptedPassword,userId,credId);
+        }
     }
 
     public ArrayList<CredModel> getAllCred(String userName){
